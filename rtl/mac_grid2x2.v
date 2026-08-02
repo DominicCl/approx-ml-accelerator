@@ -9,8 +9,8 @@ module mac_grid2x2 (
     input  wire signed [7:0]  weight_10,
     input  wire signed [7:0]  weight_11,
 
-    input  wire signed [7:0]  activation_row0_in,
-    input  wire signed [7:0]  activation_row1_in,
+    input  wire signed [7:0]  activation_col0_entry,
+    input  wire signed [7:0]  activation_col1_entry,
 
     output wire signed [31:0] result_col0,
     output wire signed [31:0] result_col1
@@ -27,7 +27,7 @@ module mac_grid2x2 (
     mac_grid_cell cell1 (
         .clk(clk), .reset(reset), .accumulate_enable(accumulate_enable),
         .weight(weight_00),
-        .activation_in(activation_row0_in),
+        .activation_in(activation_col0_entry),
         .threshold(threshold),
         .partial_sum_in(32'sd0),
         .skip_decision(skip_00),
@@ -49,7 +49,7 @@ module mac_grid2x2 (
     mac_grid_cell cell3 (
         .clk(clk), .reset(reset), .accumulate_enable(accumulate_enable),
         .weight(weight_10),
-        .activation_in(activation_row1_in),
+        .activation_in(activation_col1_entry),
         .threshold(threshold),
         .partial_sum_in(psum_c0_row0_to_row1),
         .skip_decision(skip_10),

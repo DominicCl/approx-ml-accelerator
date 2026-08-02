@@ -18,8 +18,8 @@ module mac_grid2x2_tb;
         .threshold(threshold),
         .weight_00(weight_00), .weight_01(weight_01),
         .weight_10(weight_10), .weight_11(weight_11),
-        .activation_row0_in(activation_col0_in),
-        .activation_row1_in(activation_col1_in),
+        .activation_col0_entry(activation_col0_in),
+        .activation_col1_entry(activation_col1_in),
         .result_col0(result_col0),
         .result_col1(result_col1)
     );
