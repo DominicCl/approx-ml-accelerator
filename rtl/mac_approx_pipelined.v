@@ -6,8 +6,8 @@ module mac_approx_pipelined (
     input  wire signed [7:0]  activation,
     input  wire        [7:0]  threshold,
     output reg  signed [31:0] accum_out,
-    output wire                skip_decision
-
+    output wire                skip_decision,
+    output reg  signed [7:0]  activation_out
 );
 
     wire [7:0] abs_weight;
@@ -35,6 +35,15 @@ module mac_approx_pipelined (
         end else begin
 
             stage1_valid <= 1'b0;
+        end
+    end
+
+    always @(posedge clk) begin
+        if (reset) begin
+            activation_out <= 8'sd0;
+        end else if (accumulate_enable) begin
+
+            activation_out <= activation;
         end
     end
 

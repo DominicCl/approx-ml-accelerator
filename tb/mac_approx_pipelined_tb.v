@@ -10,6 +10,7 @@ module mac_approx_pipelined_tb;
     reg [7:0] threshold;
     wire signed [31:0] accum_out;
     wire skip_decision;
+    wire signed [7:0] activation_out;
 
     integer errors = 0;
 
@@ -21,7 +22,8 @@ module mac_approx_pipelined_tb;
         .activation(activation),
         .threshold(threshold),
         .accum_out(accum_out),
-        .skip_decision(skip_decision)
+        .skip_decision(skip_decision),
+        .activation_out(activation_out)
     );
 
     initial clk = 0;
