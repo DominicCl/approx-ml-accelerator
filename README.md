@@ -1,16 +1,16 @@
-# mlchip — Approximate-Computing ML Accelerator
+# mlchip: Approximate-Computing ML Accelerator
 
 An RTL (Verilog) chip design project: an ML accelerator's multiply-
 accumulate (MAC) unit that deliberately trades numerical precision for
 energy savings, using techniques informed by real neural network
 behavior:
 
-- **Near-zero weight skipping** — trained neural networks end up with
+- **Near-zero weight skipping**: trained neural networks end up with
   many near-zero weights; skipping the multiply-accumulate for these
   saves energy at a small, quantifiable accuracy cost.
-- **Near-zero activation skipping** — ReLU-based networks produce many
+- **Near-zero activation skipping**: ReLU-based networks produce many
   exact-zero activations; skipping these too compounds the savings.
-- **True input-gating (pipelined design)** — rather than computing a
+- **True input-gating (pipelined design)**:  rather than computing a
   result and discarding it, the design gates the multiplier's own
   *inputs*, so skipped cycles produce no new switching activity at the
   multiplier itself, not just at the accumulator.
