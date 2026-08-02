@@ -1,6 +1,3 @@
-// blocking_vs_nonblocking_tb.v
-// TEACHING EXAMPLE ONLY.
-
 `timescale 1ns / 1ps
 
 module blocking_vs_nonblocking_tb;
@@ -8,8 +5,8 @@ module blocking_vs_nonblocking_tb;
     reg clk;
     reg [7:0] data_in;
 
-    wire [7:0] nb_reg_a, nb_reg_b; // non-blocking version's outputs
-    wire [7:0] bl_reg_a, bl_reg_b; // blocking version's outputs
+    wire [7:0] nb_reg_a, nb_reg_b;
+    wire [7:0] bl_reg_a, bl_reg_b;
 
     nonblocking_version nb_uut (
         .clk(clk), .data_in(data_in), .reg_a(nb_reg_a), .reg_b(nb_reg_b)

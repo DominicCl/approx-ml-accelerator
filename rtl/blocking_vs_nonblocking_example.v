@@ -1,14 +1,3 @@
-// blocking_vs_nonblocking_example.v
-//
-// TEACHING EXAMPLE ONLY - demonstrates the real behavioral difference
-// between <= (non-blocking) and = (blocking) assignment, using the
-// simplest possible case: passing a value through two chained registers.
-//
-// Expected correct behavior (like a 2-stage pipeline): on each clock
-// edge, reg_b should take on whatever reg_a held BEFORE this edge (i.e.
-// reg_b lags reg_a by exactly one cycle), and reg_a takes on the new
-// input. This is the standard "shift register" pattern.
-
 module nonblocking_version (
     input  wire clk,
     input  wire [7:0] data_in,
@@ -16,8 +5,8 @@ module nonblocking_version (
     output reg  [7:0] reg_b
 );
     always @(posedge clk) begin
-        reg_a <= data_in;  // non-blocking
-        reg_b <= reg_a;    // reads reg_a's OLD (pre-edge) value
+        reg_a <= data_in;
+        reg_b <= reg_a;
     end
 endmodule
 
@@ -28,7 +17,7 @@ module blocking_version (
     output reg  [7:0] reg_b
 );
     always @(posedge clk) begin
-        reg_a = data_in;   // blocking
-        reg_b = reg_a;     // reads reg_a's NEW value (just set on the line above!)
+        reg_a = data_in;
+        reg_b = reg_a;
     end
 endmodule

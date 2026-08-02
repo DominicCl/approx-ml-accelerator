@@ -1,6 +1,3 @@
-// mac_approx_tb.v
-// Testbench for mac_approx.v.
-
 `timescale 1ns / 1ps
 
 module mac_approx_tb;
@@ -55,12 +52,11 @@ module mac_approx_tb;
     initial begin
         $display("Starting mac_approx test...");
 
-        // --- Setup: reset, set a threshold of 5 ---
         reset = 1;
         accumulate_enable = 0;
         weight = 0;
         activation = 0;
-        threshold = 8'd5;   // any abs(weight) < 5 should be skipped
+        threshold = 8'd5;
         @(posedge clk);
         #1;
         check_accum(0, "after reset");
@@ -68,7 +64,6 @@ module mac_approx_tb;
         reset = 0;
         accumulate_enable = 1;
 
-        // --- Test 1: normal operation (weight and activation both "large") ---
         weight = 10;
         activation = 4;
         @(posedge clk);
@@ -76,33 +71,27 @@ module mac_approx_tb;
         check_skipped(0, "normal op: not skipped");
         check_accum(40, "normal op: 10*4=40");
 
-        // --- Test 2: weight-skip triggers (small positive weight) ---
-        weight = 3;          // abs(3) = 3, which is < threshold (5)
-        activation = 20;     // large activation - if NOT skipped, this would add 60
+        weight = 3;
+        activation = 20;
         @(posedge clk);
         #1;
         check_skipped(1, "weight-skip: small positive weight");
         check_accum(40, "weight-skip: accum unchanged (still 40)");
 
-        // --- Test 3: weight-skip triggers (small NEGATIVE weight) ---
-        weight = -2;         // abs(-2) = 2, which is < threshold (5)
-        activation = 50;     // large activation - would add -100 if not skipped
+        weight = -2;
+        activation = 50;
         @(posedge clk);
         #1;
         check_skipped(1, "weight-skip: small negative weight");
         check_accum(40, "weight-skip (negative): accum unchanged (still 40)");
 
-        // --- Test 4: activation-skip triggers (activation exactly zero) ---
-        weight = 100;        // large weight - would add a lot if not skipped
+        weight = 100;
         activation = 0;
         @(posedge clk);
         #1;
         check_skipped(1, "activation-skip: activation is zero");
         check_accum(40, "activation-skip: accum unchanged (still 40)");
 
-        // --- Test 5: boundary case - weight exactly AT threshold (should NOT skip) ---
-        // Our condition is abs_weight < threshold, so abs_weight == threshold
-        // should NOT trigger a skip (5 is not < 5).
         weight = 5;
         activation = 2;
         @(posedge clk);
@@ -110,7 +99,6 @@ module mac_approx_tb;
         check_skipped(0, "boundary: weight == threshold, should NOT skip");
         check_accum(50, "boundary: 40 + 5*2=10 -> 50");
 
-        // --- Test 6: normal operation resumes correctly after skips ---
         weight = 6;
         activation = 6;
         @(posedge clk);
