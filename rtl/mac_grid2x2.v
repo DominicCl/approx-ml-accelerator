@@ -13,7 +13,12 @@ module mac_grid2x2 (
     input  wire signed [7:0]  activation_col1_entry,
 
     output wire signed [31:0] result_col0,
-    output wire signed [31:0] result_col1
+    output wire signed [31:0] result_col1,
+
+    output wire                skip_00,
+    output wire                skip_01,
+    output wire                skip_10,
+    output wire                skip_11
 );
 
     wire signed [7:0] act_row0_c0_to_c1;
@@ -21,8 +26,6 @@ module mac_grid2x2 (
 
     wire signed [31:0] psum_c0_row0_to_row1;
     wire signed [31:0] psum_c1_row0_to_row1;
-
-    wire skip_00, skip_01, skip_10, skip_11;
 
     mac_grid_cell cell1 (
         .clk(clk), .reset(reset), .accumulate_enable(accumulate_enable),

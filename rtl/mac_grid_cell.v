@@ -20,8 +20,11 @@ module mac_grid_cell (
     assign activation_is_zero = (activation_in == 8'sd0);
     assign skip_decision      = weight_is_small | activation_is_zero;
 
+    wire signed [7:0] mult_activation;
+    assign mult_activation = skip_decision ? 8'sd0 : activation_in;
+
     wire signed [15:0] product;
-    assign product = weight * activation_in;
+    assign product = weight * mult_activation;
 
     always @(posedge clk) begin
         if (reset) begin

@@ -10,6 +10,7 @@ module mac_grid2x2_tb;
     reg signed [7:0] activation_col0_in;
     reg signed [7:0] activation_col1_in;
     wire signed [31:0] result_col0, result_col1;
+    wire skip_00, skip_01, skip_10, skip_11;
 
     integer errors = 0;
 
@@ -21,7 +22,9 @@ module mac_grid2x2_tb;
         .activation_col0_entry(activation_col0_in),
         .activation_col1_entry(activation_col1_in),
         .result_col0(result_col0),
-        .result_col1(result_col1)
+        .result_col1(result_col1),
+        .skip_00(skip_00), .skip_01(skip_01),
+        .skip_10(skip_10), .skip_11(skip_11)
     );
 
     initial clk = 0;
@@ -84,8 +87,9 @@ module mac_grid2x2_tb;
 
     always @(posedge clk) begin
         #2;
-        $display("  [monitor] time=%0t  act_col0=%0d act_col1=%0d  result_col0=%0d result_col1=%0d",
-                  $time, activation_col0_in, activation_col1_in, result_col0, result_col1);
+        $display("  [monitor] time=%0t  act_col0=%0d act_col1=%0d  result_col0=%0d result_col1=%0d  skips: 00=%0b 01=%0b 10=%0b 11=%0b",
+                  $time, activation_col0_in, activation_col1_in, result_col0, result_col1,
+                  skip_00, skip_01, skip_10, skip_11);
     end
 
 endmodule
