@@ -10,18 +10,18 @@ module mac_grid_cell_loadable (
     output wire                skip_decision,
     output reg  signed [7:0]  activation_out,
     output reg  signed [31:0] partial_sum_out,
-    output reg  signed [7:0]  weight_shift_out
+    output wire signed [7:0]  weight_shift_out
 );
 
     reg signed [7:0] weight_reg;
 
+    assign weight_shift_out = weight_reg;
+
     always @(posedge clk) begin
         if (reset) begin
-            weight_reg        <= 8'sd0;
-            weight_shift_out  <= 8'sd0;
+            weight_reg <= 8'sd0;
         end else if (weight_load_enable) begin
-            weight_shift_out <= weight_reg;
-            weight_reg       <= weight_shift_in;
+            weight_reg <= weight_shift_in;
         end
     end
 

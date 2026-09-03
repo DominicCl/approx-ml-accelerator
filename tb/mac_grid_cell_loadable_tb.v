@@ -63,11 +63,11 @@ module mac_grid_cell_loadable_tb;
 
         weight_shift_in = 9;
         @(posedge clk); #1;
-        check(weight_shift_out, 0, "cycle1: shifted in 9, but old value (0) pushed out first");
+        check(weight_shift_out, 9, "cycle1: shifted in 9, now visible immediately (no extra lag)");
 
         weight_shift_in = 7;
         @(posedge clk); #1;
-        check(weight_shift_out, 9, "cycle2: now the 9 we loaded last cycle gets pushed out");
+        check(weight_shift_out, 7, "cycle2: shifted in 7, replaces 9 immediately");
 
         weight_load_enable = 0;
         accumulate_enable = 1;
