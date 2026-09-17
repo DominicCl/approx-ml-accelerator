@@ -45,6 +45,12 @@ sudo apt-get install iverilog yosys gtkwave
 
 ## Running a testbench
 
+Create the simulation output directory first (needed after a fresh clone):
+
+```sh
+mkdir -p sim
+```
+
 ```
 iverilog -o sim/<name>.out rtl/<module>.v tb/<module>_tb.v
 vvp sim/<name>.out
