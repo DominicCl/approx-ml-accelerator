@@ -55,3 +55,12 @@ mkdir -p sim
 iverilog -o sim/<name>.out rtl/<module>.v tb/<module>_tb.v
 vvp sim/<name>.out
 ```
+
+For example, run the baseline MAC testbench:
+
+```sh
+iverilog -o sim/mac_baseline.out rtl/mac_baseline.v tb/mac_baseline_tb.v
+vvp sim/mac_baseline.out
+```
+
+A successful run prints `ALL TESTS PASSED.`
