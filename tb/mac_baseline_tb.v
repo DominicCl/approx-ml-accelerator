@@ -84,7 +84,7 @@ module mac_baseline_tb;
         if (errors == 0)
             $display("ALL TESTS PASSED.");
         else
-            $display("%0d TEST(S) FAILED.", errors);
+            $fatal(1, "%0d TEST(S) FAILED.", errors);
 
         $finish;
     end
