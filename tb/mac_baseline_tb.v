@@ -23,7 +23,7 @@ module mac_baseline_tb;
     initial clk = 0;
     always #5 clk = ~clk;
 
-    task check_accum(input signed [31:0] expected, input [255:0] label);
+    task check_accum(input signed [31:0] expected, input [8*64-1:0] label);
         begin
             if (accum_out !== expected) begin
                 errors = errors + 1;
