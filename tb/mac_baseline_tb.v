@@ -81,6 +81,19 @@ module mac_baseline_tb;
         #1;
         check_accum(0, "reset clears non-zero accumulator");
 
+        reset = 0;
+        accumulate_enable = 1;
+        weight = -128;
+        activation = -128;
+        @(posedge clk);
+        #1;
+        check_accum(16384, "signed limits: -128 * -128 = 16384");
+
+        weight = 127;
+        @(posedge clk);
+        #1;
+        check_accum(128, "signed limits: 16384 + 127 * -128 = 128");
+
         if (errors == 0)
             $display("ALL TESTS PASSED.");
         else
